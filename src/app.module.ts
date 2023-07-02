@@ -1,10 +1,11 @@
 import { Module, ValidationPipe } from '@nestjs/common';
-import { APP_PIPE } from '@nestjs/core';
+import { APP_FILTER, APP_PIPE } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Producto } from './productos/entities/producto.entity';
 import { Estado } from './productos/entities/estado.entity';
 import { Categoria } from './productos/entities/categoria.entity';
 import { ProductosModule } from './productos/productos.module';
+import { GlobalExceptionFilter } from './filters/global-exception.filter';
 
 @Module({
   imports: [
@@ -26,6 +27,10 @@ import { ProductosModule } from './productos/productos.module';
     {
       provide: APP_PIPE,
       useClass: ValidationPipe,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: GlobalExceptionFilter,
     },
   ],
 })

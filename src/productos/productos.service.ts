@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProductoDto } from './dto/create-producto.dto';
 import { UpdateProductoDto } from './dto/update-producto.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -48,7 +48,7 @@ export class ProductosService {
       const updatedProduct = await this.productoRepository.save(product);
       return updatedProduct;
     } else {
-      throw new Error('ID does not match any product');
+      throw new NotFoundException('ID does not match any product');
     }
   }
 

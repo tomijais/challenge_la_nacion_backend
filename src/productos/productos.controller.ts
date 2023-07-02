@@ -19,56 +19,17 @@ export class ProductosController {
 
   @Post()
   async create(@Body() createProductoDto: CreateProductoDto) {
-    try {
-      const response = await this.productosService.create(createProductoDto);
-      return response;
-    } catch (error) {
-      throw new HttpException(
-        {
-          error: error.message,
-        },
-        HttpStatus.BAD_REQUEST,
-        {
-          cause: error,
-        },
-      );
-    }
+    return this.productosService.create(createProductoDto);
   }
 
   @Get()
   async findAll() {
-    try {
-      const response = await this.productosService.findAll();
-      return response;
-    } catch (error) {
-      throw new HttpException(
-        {
-          error: error.message,
-        },
-        HttpStatus.BAD_REQUEST,
-        {
-          cause: error,
-        },
-      );
-    }
+    return this.productosService.findAll();
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    try {
-      const response = await this.productosService.findOne(+id);
-      return response;
-    } catch (error) {
-      throw new HttpException(
-        {
-          error: error.message,
-        },
-        HttpStatus.BAD_REQUEST,
-        {
-          cause: error,
-        },
-      );
-    }
+    return this.productosService.findOne(+id);
   }
 
   @Patch(':id')
@@ -76,40 +37,11 @@ export class ProductosController {
     @Param('id') id: string,
     @Body() updateProductoDto: UpdateProductoDto,
   ) {
-    try {
-      const response = await this.productosService.update(
-        +id,
-        updateProductoDto,
-      );
-      return response;
-    } catch (error) {
-      throw new HttpException(
-        {
-          error: error.message,
-        },
-        HttpStatus.BAD_REQUEST,
-        {
-          cause: error,
-        },
-      );
-    }
+    return this.productosService.update(+id, updateProductoDto);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    try {
-      const response = await this.productosService.remove(+id);
-      return response;
-    } catch (error) {
-      throw new HttpException(
-        {
-          error: error.message,
-        },
-        HttpStatus.BAD_REQUEST,
-        {
-          cause: error,
-        },
-      );
-    }
+    return this.productosService.remove(+id);
   }
 }
