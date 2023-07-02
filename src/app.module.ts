@@ -1,11 +1,10 @@
 import { Module, ValidationPipe } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { APP_PIPE } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Producto } from './entities/producto.entity';
-import { Estado } from './entities/estado.entity';
-import { Categoria } from './entities/categoria.entity';
+import { Producto } from './productos/entities/producto.entity';
+import { Estado } from './productos/entities/estado.entity';
+import { Categoria } from './productos/entities/categoria.entity';
+import { ProductosModule } from './productos/productos.module';
 
 @Module({
   imports: [
@@ -16,13 +15,14 @@ import { Categoria } from './entities/categoria.entity';
       username: 'postgres',
       password: 'example',
       database: 'postgres',
-      entities: [Producto, Estado, Categoria],
+      autoLoadEntities: true,
+      entities: [],
       synchronize: true,
     }),
+    ProductosModule,
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [
-    AppService,
     {
       provide: APP_PIPE,
       useClass: ValidationPipe,
