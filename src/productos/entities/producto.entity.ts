@@ -19,7 +19,7 @@ export class Producto {
   @IsInt()
   sku: number;
 
-  @ManyToOne(() => Categoria)
+  @ManyToOne(() => Categoria, { cascade: true, eager: true })
   @JoinColumn({ name: 'id_categoria' })
   categoria: Categoria;
 
@@ -35,7 +35,7 @@ export class Producto {
   @IsDecimal({ decimal_digits: '2' })
   precio: number;
 
-  @ManyToOne(() => Estado)
+  @ManyToOne(() => Estado, { cascade: true, eager: true })
   @JoinColumn({ name: 'id_estado' })
   estado: Estado;
 }
