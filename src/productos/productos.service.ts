@@ -25,23 +25,25 @@ export class ProductosService {
   }
 
   findAll(): Promise<Producto[]> {
-    return this.productoRepository.find({});
+    return this.productoRepository.find();
   }
 
-  findOne(id: number): Promise<Producto | null> {
-    return this.productoRepository.findOne({
+  async findOne(id: number): Promise<Producto> {
+    const producto = await this.productoRepository.findOne({
       where: {
         id,
       },
     });
+    if (!producto) {
+      throw new NotFoundException(`Product with ID ${id} not found`);
+    }
+    return producto;
   }
 
   async update(id: number, producto: UpdateProductoDto) {
     const product = await this.findOne(id);
 
     if (product) {
-      console.log(product);
-
       this.productoRepository.merge(product, {
         ...producto,
       });
